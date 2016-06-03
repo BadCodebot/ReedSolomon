@@ -88,10 +88,10 @@ namespace SRFS {
 	void GaloisField16::SSEMultiplyStandard(uint16_t y, uint16_t* a, uint16_t* result, int count) {
 		if (count % 16 != 0) throw std::invalid_argument("count must be a multiple of 16");
 
-		LookupTable* ttable = _instance._lookupTables[y];
-		if (ttable == nullptr) {
-			ttable = new LookupTable(y);
-			_instance._lookupTables[y] = ttable;
+		LookupTable* table = _instance._lookupTables[y];
+		if (table == nullptr) {
+			table = new LookupTable(y);
+			_instance._lookupTables[y] = table;
 		}
 
 		__m128i mask = _mm_set1_epi16(0xff);
@@ -114,26 +114,26 @@ namespace SRFS {
 			// Low order 
 			// 0 b0 0 c0 0 d0 0 e0
 			__m128i nybble = _mm_and_si128(low, mask1);
-			__m128i resultHigh = _mm_shuffle_epi8(*ttable->T0High, nybble);
-			__m128i resultLow = _mm_shuffle_epi8(*ttable->T0Low, nybble);
+			__m128i resultHigh = _mm_shuffle_epi8(*table->T0High, nybble);
+			__m128i resultLow = _mm_shuffle_epi8(*table->T0Low, nybble);
 
 			// 0 b1 0 c1 0 d1 0 e1
 			__m128i high_nybble = _mm_and_si128(low, mask2);
 			nybble = _mm_srli_epi64(high_nybble, 4);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T1High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T1Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T1High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T1Low, nybble));
 
 			// High order
 			// 0 b2 0 c2 0 d2 0 e2
 			nybble = _mm_and_si128(high, mask1);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T2High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T2Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T2High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T2Low, nybble));
 
 			// 0 b3 0 c3 0 d3 0 e3
 			high_nybble = _mm_and_si128(high, mask2);
 			nybble = _mm_srli_epi64(high_nybble, 4);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T3High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T3Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T3High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T3Low, nybble));
 
 			ab = _mm_unpacklo_epi8(resultLow, resultHigh);
 			cd = _mm_unpackhi_epi8(resultLow, resultHigh);
@@ -148,10 +148,10 @@ namespace SRFS {
 	void GaloisField16::SSEMultiplyAlternate(uint16_t y, uint16_t* a, uint16_t* result, int count) {
 		if (count % 16 != 0) throw std::invalid_argument("count must be a multiple of 16");
 
-		LookupTable* ttable = _instance._lookupTables[y];
-		if (ttable == nullptr) {
-			ttable = new LookupTable(y);
-			_instance._lookupTables[y] = ttable;
+		LookupTable* table = _instance._lookupTables[y];
+		if (table == nullptr) {
+			table = new LookupTable(y);
+			_instance._lookupTables[y] = table;
 		}
 
 		__m128i mask = _mm_set1_epi16(0xff);
@@ -167,26 +167,26 @@ namespace SRFS {
 			// Low order 
 			// 0 b0 0 c0 0 d0 0 e0
 			__m128i nybble = _mm_and_si128(low, mask1);
-			__m128i resultHigh = _mm_shuffle_epi8(*ttable->T0High, nybble);
-			__m128i resultLow = _mm_shuffle_epi8(*ttable->T0Low, nybble);
+			__m128i resultHigh = _mm_shuffle_epi8(*table->T0High, nybble);
+			__m128i resultLow = _mm_shuffle_epi8(*table->T0Low, nybble);
 
 			// 0 b1 0 c1 0 d1 0 e1
 			__m128i high_nybble = _mm_and_si128(low, mask2);
 			nybble = _mm_srli_epi64(high_nybble, 4);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T1High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T1Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T1High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T1Low, nybble));
 
 			// High order
 			// 0 b2 0 c2 0 d2 0 e2
 			nybble = _mm_and_si128(high, mask1);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T2High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T2Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T2High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T2Low, nybble));
 
 			// 0 b3 0 c3 0 d3 0 e3
 			high_nybble = _mm_and_si128(high, mask2);
 			nybble = _mm_srli_epi64(high_nybble, 4);
-			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*ttable->T3High, nybble));
-			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*ttable->T3Low, nybble));
+			resultHigh = _mm_xor_si128(resultHigh, _mm_shuffle_epi8(*table->T3High, nybble));
+			resultLow = _mm_xor_si128(resultLow, _mm_shuffle_epi8(*table->T3Low, nybble));
 
 			_mm_storeu_si128((__m128i*)result, resultLow);
 			result += 8;
