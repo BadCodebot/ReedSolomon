@@ -3,7 +3,7 @@
 #include "GaloisField16.h"
 #include <algorithm>
 
-namespace SRFS {
+namespace ReedSolomon {
 
 	Polynomial::Polynomial(int order) {
 		_order = order;

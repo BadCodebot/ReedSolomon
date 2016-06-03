@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace SRFS {
+namespace ReedSolomon {
 
 	class Polynomial {
 

@@ -1,7 +1,7 @@
 #include "GaloisField16.h"
 #include <stdexcept>
 
-namespace SRFS {
+namespace ReedSolomon {
 
 	GaloisField16 GaloisField16::_instance = GaloisField16();
 

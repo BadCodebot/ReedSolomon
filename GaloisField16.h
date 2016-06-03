@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <tmmintrin.h>
 
-namespace SRFS
+namespace ReedSolomon
 {
 	class TTables;
 
