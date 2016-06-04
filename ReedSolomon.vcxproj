@@ -160,6 +160,7 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="RS16Parity.cpp" />
+    <ClCompile Include="RS16Repair.cpp" />
     <ClCompile Include="RS16Syndrome.cpp" />
     <ClCompile Include="SquareMatrix.cpp" />
     <ClCompile Include="Vector.cpp" />
