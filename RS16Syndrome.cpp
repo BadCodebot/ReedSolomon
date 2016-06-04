@@ -1,10 +1,10 @@
-#include "RS16SyndromeCalculator.h"
+#include "RS16Syndrome.h"
 #include <iostream>
 #include "GaloisField16.h"
 
 namespace ReedSolomon {
 
-	RS16SyndromeCalculator::RS16SyndromeCalculator(int nParityCodeWords, int nMessages) {
+	RS16Syndrome::RS16Syndrome(int nParityCodeWords, int nMessages) {
 
 		_nParityCodeWords = nParityCodeWords;
 		_nMessages = nMessages;
@@ -14,44 +14,44 @@ namespace ReedSolomon {
 		temp1 = new uint16_t[nMessages];
 	}
 
-	RS16SyndromeCalculator::~RS16SyndromeCalculator() {
+	RS16Syndrome::~RS16Syndrome() {
 		delete[] syndrome;
 		delete[] temp1;
 	}
 
-	void RS16SyndromeCalculator::Encode(uint16_t* data) const {
+	void RS16Syndrome::Encode(uint16_t* data) const {
 		for (int i = 0; i < _nParityCodeWords; ++i) {
 			GaloisField16::Multiply(GaloisField16::Exp(i), syndrome + i * _nMessages, temp1, _nMessages);
 			GaloisField16::Add(data, temp1, syndrome + i * _nMessages, _nMessages);
 		}
 	}
 
-	void RS16SyndromeCalculator::SSEEncode(uint16_t* data) const {
+	void RS16Syndrome::SSEEncode(uint16_t* data) const {
 		for (int i = 0; i < _nParityCodeWords; ++i) {
 			GaloisField16::SSEMultiplyStandard(GaloisField16::Exp(i), syndrome + i * _nMessages, temp1, _nMessages);
 			GaloisField16::SSEAdd(data, temp1, syndrome + i * _nMessages, _nMessages);
 		}
 	}
 
-	RS16SyndromeCalculator* RS16SyndromeCalculator_Construct(int nParityCodeWords, int nMessages) {
-		return new RS16SyndromeCalculator(nParityCodeWords, nMessages);
+	RS16Syndrome* RS16Syndrome_Construct(int nParityCodeWords, int nMessages) {
+		return new RS16Syndrome(nParityCodeWords, nMessages);
 	}
 
-	void RS16SyndromeCalculator_Destruct(RS16SyndromeCalculator* rsc) {
+	void RS16Syndrome_Destruct(RS16Syndrome* rsc) {
 		delete rsc;
 	}
 
-	void RS16SyndromeCalculator_Encode(RS16SyndromeCalculator* rsc, uint16_t* data) {
+	void RS16Syndrome_Encode(RS16Syndrome* rsc, uint16_t* data) {
 		rsc->Encode(data);
 	}
 
-	void RS16SyndromeCalculator_SSEEncode(RS16SyndromeCalculator* rsc, uint16_t* data) {
+	void RS16Syndrome_SSEEncode(RS16Syndrome* rsc, uint16_t* data) {
 		rsc->SSEEncode(data);
 	}
 
-	uint16_t* RS16SyndromeCalculator_GetSyndrome(RS16SyndromeCalculator* rsc) { return rsc->GetSyndrome(); }
+	uint16_t* RS16Syndrome_GetSyndrome(RS16Syndrome* rsc) { return rsc->GetSyndrome(); }
 
-	int RS16SyndromeCalculator_GetNParityCodeWords(RS16SyndromeCalculator* rsc) { return rsc->GetNParityCodeWords(); }
+	int RS16Syndrome_GetNParityCodeWords(RS16Syndrome* rsc) { return rsc->GetNParityCodeWords(); }
 
-	int RS16SyndromeCalculator_GetNMessages(RS16SyndromeCalculator* rsc) { return rsc->GetNMessages(); }
+	int RS16Syndrome_GetNMessages(RS16Syndrome* rsc) { return rsc->GetNMessages(); }
 }
