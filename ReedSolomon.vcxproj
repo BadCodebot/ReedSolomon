@@ -147,6 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GaloisField16.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Polynomial.h" />
     <ClInclude Include="RS16Parity.h" />
     <ClInclude Include="RS16Repair.h" />
@@ -155,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GaloisField16.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="RS16Parity.cpp" />
     <ClCompile Include="RS16Syndrome.cpp" />
