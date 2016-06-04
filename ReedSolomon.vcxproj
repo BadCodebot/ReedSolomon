@@ -151,12 +151,14 @@
     <ClInclude Include="RS16Parity.h" />
     <ClInclude Include="RS16Repair.h" />
     <ClInclude Include="RS16Syndrome.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GaloisField16.cpp" />
     <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="RS16Parity.cpp" />
-    <ClCompile Include="RS16SyndromeCalculator.cpp" />
+    <ClCompile Include="RS16Syndrome.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
