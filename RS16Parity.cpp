@@ -62,7 +62,7 @@ namespace ReedSolomon {
 		GaloisField16::SSEMultiplyAlternate(generator[_nParityCodeWords - 1], temp1, parity + (_nParityCodeWords - 1)*_nMessages, _nMessages);
 	}
 
-	RS16Parity* ReedSolomon16Calculate_Construct(int nParityCodeWords, int nMessages) {
+	RS16Parity* RS16Parity_Construct(int nParityCodeWords, int nMessages) {
 		return new RS16Parity(nParityCodeWords, nMessages);
 	}
 
