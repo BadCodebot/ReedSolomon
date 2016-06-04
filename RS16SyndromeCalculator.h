@@ -3,12 +3,12 @@
 
 namespace ReedSolomon {
 
-	class RS16SyndromeCalculator {
+	class RS16Syndrome {
 
 	public:
 
-		RS16SyndromeCalculator(int nParityCodeWords, int nMessages);
-		~RS16SyndromeCalculator();
+		RS16Syndrome(int nParityCodeWords, int nMessages);
+		~RS16Syndrome();
 
 		void Encode(uint16_t* data) const;
 		void SSEEncode(uint16_t* data) const;
@@ -27,12 +27,12 @@ namespace ReedSolomon {
 	};
 
 	extern "C" {
-		__declspec(dllexport) RS16SyndromeCalculator* RS16SyndromeCalculator_Construct(int nParityCodeWords, int nMessages);
-		__declspec(dllexport) void RS16SyndromeCalculator_Destruct(RS16SyndromeCalculator* rsc);
-		__declspec(dllexport) void RS16SyndromeCalculator_Encode(RS16SyndromeCalculator* rsc, uint16_t* data);
-		__declspec(dllexport) void RS16SyndromeCalculator_SSEEncode(RS16SyndromeCalculator* rsc, uint16_t* data);
-		__declspec(dllexport) uint16_t* RS16SyndromeCalculator_GetSyndrome(RS16SyndromeCalculator* rsc);
-		__declspec(dllexport) int RS16SyndromeCalculator_GetNParityCodeWords(RS16SyndromeCalculator* rsc);
-		__declspec(dllexport) int RS16SyndromeCalculator_GetNMessages(RS16SyndromeCalculator* rsc);
+		__declspec(dllexport) RS16Syndrome* RS16SyndromeCalculator_Construct(int nParityCodeWords, int nMessages);
+		__declspec(dllexport) void RS16SyndromeCalculator_Destruct(RS16Syndrome* rsc);
+		__declspec(dllexport) void RS16SyndromeCalculator_Encode(RS16Syndrome* rsc, uint16_t* data);
+		__declspec(dllexport) void RS16SyndromeCalculator_SSEEncode(RS16Syndrome* rsc, uint16_t* data);
+		__declspec(dllexport) uint16_t* RS16SyndromeCalculator_GetSyndrome(RS16Syndrome* rsc);
+		__declspec(dllexport) int RS16SyndromeCalculator_GetNParityCodeWords(RS16Syndrome* rsc);
+		__declspec(dllexport) int RS16SyndromeCalculator_GetNMessages(RS16Syndrome* rsc);
 	}
 }

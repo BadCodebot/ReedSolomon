@@ -3,12 +3,12 @@
 
 namespace ReedSolomon {
 
-	class RS16ParityCalculator {
+	class RS16Parity {
 
 	public:
 
-		RS16ParityCalculator(int nParityCodeWords, int nMessages);
-		~RS16ParityCalculator();
+		RS16Parity(int nParityCodeWords, int nMessages);
+		~RS16Parity();
 
 		void Encode(uint16_t* data) const;
 		void SSEEncodeStandard(uint16_t* data) const;
@@ -32,13 +32,13 @@ namespace ReedSolomon {
 	};
 
 	extern "C" {
-		__declspec(dllexport) RS16ParityCalculator* ReedSolomon16Calculate_Construct(int nParityCodeWords, int nMessages);
-		__declspec(dllexport) void RS16ParityCalculator_Destruct(RS16ParityCalculator* rsc);
-		__declspec(dllexport) void RS16ParityCalculator_Encode(RS16ParityCalculator* rsc, uint16_t* data);
-		__declspec(dllexport) void RS16ParityCalculator_SSEEncodeStandard(RS16ParityCalculator* rsc, uint16_t* data);
-		__declspec(dllexport) void RS16ParityCalculator_SSEEncodeAlternate(RS16ParityCalculator* rsc, uint16_t* data);
-		__declspec(dllexport) uint16_t* RS16ParityCalculator_GetParity(RS16ParityCalculator* rsc);
-		__declspec(dllexport) int RS16ParityCalculator_GetNParityCodeWords(RS16ParityCalculator* rsc);
-		__declspec(dllexport) int RS16ParityCalculator_GetNMessages(RS16ParityCalculator* rsc);
+		__declspec(dllexport) RS16Parity* ReedSolomon16Calculate_Construct(int nParityCodeWords, int nMessages);
+		__declspec(dllexport) void RS16ParityCalculator_Destruct(RS16Parity* rsc);
+		__declspec(dllexport) void RS16ParityCalculator_Encode(RS16Parity* rsc, uint16_t* data);
+		__declspec(dllexport) void RS16ParityCalculator_SSEEncodeStandard(RS16Parity* rsc, uint16_t* data);
+		__declspec(dllexport) void RS16ParityCalculator_SSEEncodeAlternate(RS16Parity* rsc, uint16_t* data);
+		__declspec(dllexport) uint16_t* RS16ParityCalculator_GetParity(RS16Parity* rsc);
+		__declspec(dllexport) int RS16ParityCalculator_GetNParityCodeWords(RS16Parity* rsc);
+		__declspec(dllexport) int RS16ParityCalculator_GetNMessages(RS16Parity* rsc);
 	}
 }

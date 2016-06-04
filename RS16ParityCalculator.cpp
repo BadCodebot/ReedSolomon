@@ -1,12 +1,12 @@
 #pragma once
-#include "RS16ParityCalculator.h"
+#include "RS16Parity.h"
 #include "GaloisField16.h"
 #include "Polynomial.h"
 #include <iostream>
 
 namespace ReedSolomon {
 
-	RS16ParityCalculator::RS16ParityCalculator(int nParityCodeWords, int nMessages) {
+	RS16Parity::RS16Parity(int nParityCodeWords, int nMessages) {
 
 		_nParityCodeWords = nParityCodeWords;
 		_nMessages = nMessages;
@@ -27,14 +27,14 @@ namespace ReedSolomon {
 		}
 	}
 
-	RS16ParityCalculator::~RS16ParityCalculator() {
+	RS16Parity::~RS16Parity() {
 		delete[] parity;
 		delete[] generator;
 		delete[] temp1;
 		delete[] temp2;
 	}
 
-	void RS16ParityCalculator::Encode(uint16_t* data) const {
+	void RS16Parity::Encode(uint16_t* data) const {
 		GaloisField16::Add(parity, data, temp1, _nMessages);
 		for (int i = 0; i < _nParityCodeWords - 1; ++i) {
 			GaloisField16::Multiply(generator[i], temp1, temp2, _nMessages);
@@ -43,7 +43,7 @@ namespace ReedSolomon {
 		GaloisField16::Multiply(generator[_nParityCodeWords - 1], temp1, parity + (_nParityCodeWords - 1)*_nMessages, _nMessages);
 	}
 
-	void RS16ParityCalculator::SSEEncodeStandard(uint16_t* data) const {
+	void RS16Parity::SSEEncodeStandard(uint16_t* data) const {
 		GaloisField16::SSEAdd(parity, data, temp1, _nMessages);
 		for (int i = 0; i < _nParityCodeWords - 1; ++i) {
 			GaloisField16::SSEMultiplyStandard(generator[i], temp1, temp2, _nMessages);
@@ -52,7 +52,7 @@ namespace ReedSolomon {
 		GaloisField16::SSEMultiplyStandard(generator[_nParityCodeWords - 1], temp1, parity + (_nParityCodeWords - 1)*_nMessages, _nMessages);
 	}
 
-	void RS16ParityCalculator::SSEEncodeAlternate(uint16_t* data) const {
+	void RS16Parity::SSEEncodeAlternate(uint16_t* data) const {
 
 		GaloisField16::SSEAdd(parity, data, temp1, _nMessages);
 		for (int i = 0; i < _nParityCodeWords - 1; ++i) {
@@ -62,29 +62,29 @@ namespace ReedSolomon {
 		GaloisField16::SSEMultiplyAlternate(generator[_nParityCodeWords - 1], temp1, parity + (_nParityCodeWords - 1)*_nMessages, _nMessages);
 	}
 
-	RS16ParityCalculator* ReedSolomon16Calculate_Construct(int nParityCodeWords, int nMessages) {
-		return new RS16ParityCalculator(nParityCodeWords, nMessages);
+	RS16Parity* ReedSolomon16Calculate_Construct(int nParityCodeWords, int nMessages) {
+		return new RS16Parity(nParityCodeWords, nMessages);
 	}
 
-	void RS16ParityCalculator_Destruct(RS16ParityCalculator* rsc) {
+	void RS16Parity_Destruct(RS16Parity* rsc) {
 		delete rsc;
 	}
 
-	void RS16ParityCalculator_Encode(RS16ParityCalculator* rsc, uint16_t* data) {
+	void RS16Parity_Encode(RS16Parity* rsc, uint16_t* data) {
 		rsc->Encode(data);
 	}
 
-	void RS16ParityCalculator_SSEEncodeStandard(RS16ParityCalculator* rsc, uint16_t* data) {
+	void RS16Parity_SSEEncodeStandard(RS16Parity* rsc, uint16_t* data) {
 		rsc->SSEEncodeStandard(data);
 	}
 
-	void RS16ParityCalculator_SSEEncodeAlternate(RS16ParityCalculator* rsc, uint16_t* data) {
+	void RS16Parity_SSEEncodeAlternate(RS16Parity* rsc, uint16_t* data) {
 		rsc->SSEEncodeAlternate(data);
 	}
 
-	uint16_t* RS16ParityCalculator_GetParity(RS16ParityCalculator* rsc) { return rsc->GetParity(); }
+	uint16_t* RS16Parity_GetParity(RS16Parity* rsc) { return rsc->GetParity(); }
 
-	int RS16ParityCalculator_GetNParityCodeWords(RS16ParityCalculator* rsc) { return rsc->GetNParityCodeWords(); }
+	int RS16Parity_GetNParityCodeWords(RS16Parity* rsc) { return rsc->GetNParityCodeWords(); }
 
-	int RS16ParityCalculator_GetNMessages(RS16ParityCalculator* rsc) { return rsc->GetNMessages(); }
+	int RS16Parity_GetNMessages(RS16Parity* rsc) { return rsc->GetNMessages(); }
 }
